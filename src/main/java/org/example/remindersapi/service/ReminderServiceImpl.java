@@ -1,11 +1,11 @@
 package org.example.remindersapi.service;
 
+import org.example.remindersapi.exceptions.ReminderNotFoundException;
 import org.example.remindersapi.model.Reminder;
 import org.example.remindersapi.repository.ReminderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReminderServiceImpl implements ReminderService {
@@ -27,7 +27,9 @@ public class ReminderServiceImpl implements ReminderService {
     }
 
     @Override
-    public Optional<Reminder> findById(long id) {
-        return repository.findById(id);
+    public Reminder findById(long id) {
+        return repository
+                .findById(id)
+                .orElseThrow(() -> new ReminderNotFoundException("Cannot find reminder with id: " + id));
     }
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.remindersapi.dto.CreateReminderRequest;
 import org.example.remindersapi.dto.CustomApiResponse;
@@ -13,10 +14,7 @@ import org.example.remindersapi.model.Status;
 import org.example.remindersapi.service.ReminderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -59,9 +57,10 @@ public class ReminderController {
     })
     @PostMapping
     public ResponseEntity<CustomApiResponse> createReminder(
-            @Parameter(name = "Create reminder request",
+            @Parameter(
+                    name = "Create reminder request",
                     description = "The JSON data send by the client to create the reminder")
-            @RequestBody CreateReminderRequest request
+            @RequestBody @Valid CreateReminderRequest request
     ) {
 
         // Validating the request is pending
@@ -93,4 +92,17 @@ public class ReminderController {
                 .body(apiResponse);
 
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomApiResponse> getReminderById(@PathVariable long id) {
+        var reminder = service.findById(id);
+        var apiResponse = new CustomApiResponse(
+                "Reminder found",
+                HttpStatus.OK,
+                reminder
+        );
+        return ResponseEntity.ok(apiResponse);
+    }
+
+
 }
