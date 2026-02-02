@@ -1,0 +1,43 @@
+# Data JPA Properties
+#spring.datasource.url=jdbc:mysql://localhost:3306/ever_north
+#spring.datasource.username=root
+#spring.datasource.password=password
+
+#spring.jpa.show-sql=true
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+#spring.jpa.properties.hibernate.format_sql=true
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  datasource:
+    password: password
+    username: root
+    url: jdbc:mysql://localhost:3306/ever_north
+logging:
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%logger{36} - %msg%n"
+  file:
+    name: logs/api.logs
+    path: logs
+  level:
+    root: WARN
+    org.example.remindersapi.service: DEBUG
+
+# TRACE
+# DEBUG
+# INFO
+# WARN
+# ERROR
+# FATAL
+
+# 2026-02-02T12:59:30.977+05:30 DEBUG 26020 --- [reminders-api] [nio-9000-exec-2] o.e.r.service.ReminderServiceImpl
+# : Created the reminder: {}Nurses's  appointment
