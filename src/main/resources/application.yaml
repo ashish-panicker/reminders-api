@@ -1,0 +1,9 @@
+#spring.application.name=reminders-api
+#server.port=9000
+server:
+  port: 9000
+spring:
+  application:
+    name: reminders-api
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}

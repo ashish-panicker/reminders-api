@@ -4,6 +4,7 @@ import org.example.remindersapi.exceptions.ReminderNotFoundException;
 import org.example.remindersapi.model.Reminder;
 import org.example.remindersapi.repository.ReminderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,8 +18,9 @@ public class ReminderServiceImpl implements ReminderService {
     }
 
     @Override
+    @Transactional
     public Reminder create(Reminder reminder) {
-        return repository.create(reminder);
+        return repository.save(reminder);
     }
 
     @Override
